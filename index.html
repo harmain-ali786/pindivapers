@@ -1,432 +1,1158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Haseeb's Hope - Modern E-commerce Store</title>
-<script src="https://cdn.tailwindcss.com/3.4.16"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: '#4F46E5',
-        secondary: '#6366F1'
-      },
-      borderRadius: {
-        'none': '0px',
-        'sm': '4px',
-        DEFAULT: '8px',
-        'md': '12px',
-        'lg': '16px',
-        'xl': '20px',
-        '2xl': '24px',
-        '3xl': '32px',
-        'full': '9999px',
-        'button': '8px'
-      }
-    }
-  }
-}
-</script>
-<style>
-  :where([class^="ri-"])::before { content: "\f3c2"; }
-  .product-card {
-    transition: transform 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  .product-card:hover {
-    transform: translateY(-5px) rotateY(5deg);
-  }
-  .category-card {
-    transition: all 0.3s ease;
-    transform-style: preserve-3d;
-  }
-  .category-card:hover {
-    transform: scale(1.02) rotateY(2deg);
-  }
-  @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
-  }
-  .floating {
-    animation: float 3s ease-in-out infinite;
-  }
-  .image-gallery {
-    display: flex;
-    gap: 8px;
-    margin-top: 8px;
-  }
-  .thumbnail {
-    width: 60px;
-    height: 60px;
-    object-fit: cover;
-    border-radius: 4px;
-    cursor: pointer;
-    border: 2px solid transparent;
-  }
-  .thumbnail:hover {
-    border-color: #4F46E5;
-  }
-  .thumbnail.active {
-    border-color: #4F46E5;
-  }
-  .logo-text {
-    font-family: 'Pacifico', cursive;
-    background: linear-gradient(to right, #4F46E5, #6366F1);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-size: 1.75rem;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haseeb Store - Your One-Stop Shopping Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Modern Color Palette */
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --accent: #f59e0b;
+            --dark: #1f2937;
+            --light: #f9fafb;
+            --gray: #6b7280;
+            --success: #10b981;
+            --danger: #ef4444;
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        h1, h2, h3, h4 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #4b5563;
+        }
+
+        .btn-accent {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        .btn-accent:hover {
+            background-color: #d97706;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Hero Banner */
+        .hero {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHBhdHRlcm5Vbml0cz0idXNlclNwYWNlT25Vc2UiIHBhdHRlcm5UcmFuc2Zvcm09InJvdGF0ZSg0NSkiPjxyZWN0IHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0icmdiYSgyNTUsMjU1LDI1NSwwLjA1KSIvPjwvcGF0dGVybj48L2RlZnM+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idXJsKCNwYXR0ZXJuKSIvPjwvc3ZnPg==');
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        /* Products Section */
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent);
+            margin: 1rem auto 0;
+            border-radius: 2px;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image img {
+            transform: scale(1.05);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: var(--accent);
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .product-badge.danger {
+            background-color: var(--danger);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .product-price {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price::before {
+            content: '₨ ';
+        }
+
+        .original-price {
+            font-size: 0.875rem;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-left: 0.5rem;
+        }
+
+        .product-description {
+            font-size: 0.875rem;
+            color: var(--gray);
+            margin-bottom: 1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .about-image {
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .about-text h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Contact Section */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .contact-card i {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .contact-card h3 {
+            margin-bottom: 1rem;
+        }
+
+        /* Terms Section */
+        .terms-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .policy-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .policy-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Product Page */
+        .product-page {
+            display: none;
+            padding: 5rem 0;
+        }
+
+        .product-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .product-gallery {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .main-image {
+            height: 400px;
+            background-color: #e5e7eb;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .main-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .thumbnail {
+            width: 60px;
+            height: 60px;
+            border-radius: 0.25rem;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .thumbnail:hover, .thumbnail.active {
+            border-color: var(--primary);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-info-detail h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+
+        .price-container {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+
+        .product-price-detail {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .product-price-detail::before {
+            content: '₨ ';
+        }
+
+        .original-price-detail {
+            font-size: 1.25rem;
+            color: var(--gray);
+            text-decoration: line-through;
+        }
+
+        .product-description-detail {
+            margin-bottom: 2rem;
+            color: var(--gray);
+        }
+
+        .features-list {
+            margin-bottom: 2rem;
+            padding-left: 1.25rem;
+        }
+
+        .features-list li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Order Form */
+        .order-form {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+            overflow-y: auto;
+        }
+
+        .form-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 0.5rem;
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-title {
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.375rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .form-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+
+        .order-confirmation {
+            display: none;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background-color: #f0fdf4;
+            border-left: 4px solid var(--success);
+            border-radius: 0.375rem;
+        }
+
+        .order-confirmation p {
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            color: white;
+            margin-bottom: 1.5rem;
+            font-size: 1.25rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-links a {
+            color: #d1d5db;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #9ca3af;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 1024px) {
+            .about-content,
+            .product-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 80px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 1rem;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                z-index: 99;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                padding: 0.75rem 0;
+                border-bottom: 1px solid #e5e7eb;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.25rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .form-buttons {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary);
+        }
+    </style>
 </head>
-<body class="bg-gray-50">
-<header class="fixed w-full top-0 z-50 bg-white shadow-sm">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-16">
-      <div class="flex items-center">
-        <a href="/" class="logo-text">Haseeb's Hope</a>
-      </div>
-      <nav class="hidden md:flex space-x-8">
-        <a href="#" class="text-gray-700 hover:text-primary">Electronics</a>
-        <a href="#" class="text-gray-700 hover:text-primary">Fashion</a>
-        <a href="#" class="text-gray-700 hover:text-primary">Home & Living</a>
-        <a href="#" class="text-gray-700 hover:text-primary">Sports</a>
-      </nav>
-      <div class="flex items-center space-x-4">
-        <div class="relative">
-          <input type="text" placeholder="Search products..." class="w-64 pl-10 pr-4 py-2 rounded-full border-none bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary/20">
-          <div class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
-            <i class="ri-search-line"></i>
-          </div>
+<body>
+    <!-- Header/Navbar -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span>Haseeb Store</span>
+                </div>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#products">Products</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#terms">Terms</a></li>
+                </ul>
+                <div class="hamburger" onclick="toggleMenu()">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
         </div>
-        <button class="w-10 h-10 flex items-center justify-center text-gray-700 hover:text-primary relative">
-          <i class="ri-shopping-cart-line text-xl"></i>
-          <span class="absolute -top-1 -right-1 w-5 h-5 bg-primary text-white text-xs rounded-full flex items-center justify-center">3</span>
-        </button>
-        <a href="https://wa.me/03167204052" class="floating bg-green-500 text-white px-4 py-2 rounded-full flex items-center space-x-2 hover:bg-green-600">
-          <i class="ri-whatsapp-line"></i>
-          <span>Contact</span>
-        </a>
-      </div>
-      <button class="md:hidden w-10 h-10 flex items-center justify-center">
-        <i class="ri-menu-line text-xl"></i>
-      </button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1 class="fade-in">Welcome to Haseeb Store</h1>
+            <p class="fade-in">Your One-Stop Shopping Destination</p>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Our Products</h2>
+            <div class="product-grid">
+                <!-- iPhone Cover Product -->
+                <div class="product-card fade-in">
+                    <div class="product-image">
+                        <div class="product-badge">Best Seller</div>
+                        <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="iPhone Protection Phone Cover">
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">iPhone Protection Phone Cover</h3>
+                        <div class="product-price">800 <span class="original-price">1900</span></div>
+                        <p class="product-description">
+                            Premium silicone cover with water resistance and durable protection for various iPhone models.
+                        </p>
+                        <a href="#iphone-cover" class="btn btn-primary">
+                            <i class="fas fa-eye"></i> View Product
+                        </a>
+                    </div>
+                </div>
+
+                
+    <!-- About Us Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>About Haseeb Store</h2>
+                    <p>Welcome to Haseeb Store, your one-stop shop for the best products. We are dedicated to providing you with high-quality items and excellent customer service.</p>
+                    <p>Our mission is to make shopping convenient, affordable and enjoyable for all our customers. We carefully select each product in our collection to ensure quality and value.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Haseeb Store">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Us Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Contact Us</h2>
+            <div class="contact-grid">
+                <div class="contact-card fade-in">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>haseebshop378@gmail.com</p>
+                </div>
+                <div class="contact-card fade-in">
+                    <i class="fas fa-phone-alt"></i>
+                    <h3>Call Us</h3>
+                    <p>03167202164</p>
+                </div>
+                <div class="contact-card fade-in">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp</h3>
+                    <p>03167202164</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Terms of Service Section -->
+    <section class="terms" id="terms">
+        <div class="container">
+            <h2 class="section-title">Terms of Service</h2>
+            <div class="terms-content">
+                <div class="policy-item">
+                    <h3><i class="fas fa-exchange-alt"></i> Return Policy</h3>
+                    <p>All sales are final. We do not offer returns or exchanges. If your item is damaged or incorrect, contact us within 24 hours at haseebshop378@gmail.com with photo/video proof.</p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-truck"></i> Delivery Information</h3>
+                    <p><strong>Delivery Charges:</strong> Flat PKR 300</p>
+                    <p><strong>Payment Method:</strong> Cash on Delivery (COD) only</p>
+                    <p><strong>Order Confirmation:</strong> You'll get a message via WhatsApp, SMS, or Email.</p>
+                    <p><strong>Delivery Time:</strong> 7–10 working days</p>
+                </div>
+                
+                <div class="policy-item">
+                    <h3><i class="fas fa-headset"></i> Customer Support</h3>
+                    <p>For any questions or concerns, please contact us at haseebshop378@gmail.com or call/WhatsApp at 03167202164. Our team is available to assist you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- iPhone Cover Product Page (Hidden by default) -->
+    <section class="product-page" id="iphone-cover">
+        <div class="container">
+            <div class="product-details">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="iPhone Protection Phone Cover" id="mainImage">
+                    </div>
+                    <div class="thumbnail-container">
+                        <div class="thumbnail active" onclick="changeImage('https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg')">
+                            <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="iPhone Cover Front">
+                        </div>
+                        <div class="thumbnail" onclick="changeImage('https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg')">
+                            <img src="https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg" alt="iPhone Cover Back">
+                        </div>
+                    </div>
+                </div>
+                <div class="product-info-detail">
+                    <h1>iPhone Protection Phone Cover</h1>
+                    <div class="price-container">
+                        <div class="product-price-detail">800</div>
+                        <div class="original-price-detail">1900</div>
+                    </div>
+                    <div class="product-description-detail">
+                        <p>Premium silicone phone cover designed to protect your iPhone from daily wear and tear while maintaining a sleek look.</p>
+                        <ul class="features-list">
+                            <li>Material: Silicone</li>
+                            <li>Product Features: Easy To Use, Water Resistant, Durable</li>
+                            <li>Compatible With: iPhone 11, iPhone 11 Pro, iPhone 11 Pro Max, iPhone 12, iPhone 12 Pro Max, iPhone 13, iPhone 13 Pro Max, iPhone 14, iPhone 14 Pro, iPhone 14 Pro Max, iPhone 15</li>
+                            <li>Package Includes: 1x Mobile Cover</li>
+                        </ul>
+                        <p><strong>Note:</strong> Please ensure to follow the instructions provided in the user manual for proper usage and safety precautions.</p>
+                    </div>
+                    <button class="btn btn-accent" onclick="showOrderForm('iPhone Protection Phone Cover', '800')">
+                        <i class="fas fa-shopping-cart"></i> Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Summer Collection Product Page (Hidden by default) -->
+    <section class="product-page" id="summer-collection">
+        <div class="container">
+            <div class="product-details">
+                <div class="product-gallery">
+                    <div class="main-image">
+                        <span>Summer Collection 2023</span>
+                    </div>
+                </div>
+                <div class="product-info-detail">
+                    <h1>Summer Collection 2023</h1>
+                    <div class="product-price-detail">2,499</div>
+                    <div class="product-description-detail">
+                        <p>This is our exclusive summer collection for 2023, featuring the latest trends and styles. Perfect for the warm weather with breathable fabrics and vibrant colors.</p>
+                        <p>The collection includes premium quality materials that ensure comfort and durability throughout the season.</p>
+                    </div>
+                    <button class="btn btn-accent" onclick="showOrderForm('Summer Collection 2023', '2499')">
+                        <i class="fas fa-shopping-cart"></i> Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Order Form -->
+    <div class="order-form" id="orderForm">
+        <div class="form-container">
+            <h2 class="form-title">Place Your Order</h2>
+            <form id="orderFormElement">
+                <input type="hidden" id="productName">
+                <input type="hidden" id="productPrice">
+                
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" id="name" class="form-control" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number</label>
+                    <input type="tel" id="phone" class="form-control" required placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="address">Complete Address</label>
+                    <input type="text" id="address" class="form-control" required placeholder="House #, Street, Area">
+                </div>
+                <div class="form-group">
+                    <label for="city">City</label>
+                    <input type="text" id="city" class="form-control" required placeholder="Enter your city">
+                </div>
+                
+                <div class="form-buttons">
+                    <button type="button" class="btn btn-secondary" onclick="hideOrderForm()">
+                        <i class="fas fa-times"></i> Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary" onclick="showConfirmation()">
+                        <i class="fas fa-arrow-right"></i> Continue
+                    </button>
+                </div>
+            </form>
+            
+            <div class="order-confirmation" id="orderConfirmation">
+                <h3><i class="fas fa-info-circle"></i> Important Delivery Information</h3>
+                <p>Your order will be delivered in 7 to 10 working days. You can return within 4 days only. Haseeb Store is not responsible after that. Please enter the correct address to ensure smooth delivery.</p>
+                <button class="btn btn-accent" onclick="submitOrder()" style="width: 100%;">
+                    <i class="fab fa-whatsapp"></i> Confirm Order via WhatsApp
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
-</header>
-<main class="mt-16">
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-      <div class="category-card bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer" onclick="filterByCategory('Electronics')">
-        <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-          <i class="ri-computer-line text-2xl text-primary"></i>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Electronics</h3>
-        <p class="text-gray-600 text-sm">Latest gadgets and devices</p>
-      </div>
-      <div class="category-card bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer" onclick="filterByCategory('Fashion')">
-        <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-          <i class="ri-t-shirt-line text-2xl text-primary"></i>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Fashion</h3>
-        <p class="text-gray-600 text-sm">Trendy clothing and accessories</p>
-      </div>
-      <div class="category-card bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer" onclick="filterByCategory('Home & Living')">
-        <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-          <i class="ri-home-line text-2xl text-primary"></i>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Home & Living</h3>
-        <p class="text-gray-600 text-sm">Modern home essentials</p>
-      </div>
-      <div class="category-card bg-white p-6 rounded-lg shadow-lg text-center cursor-pointer" onclick="filterByCategory('Sports')">
-        <div class="w-16 h-16 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
-          <i class="ri-basketball-line text-2xl text-primary"></i>
-        </div>
-        <h3 class="text-lg font-semibold mb-2">Sports</h3>
-        <p class="text-gray-600 text-sm">Sports gear and equipment</p>
-      </div>
-    </div>
-  </section>
-  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-      <!-- iPhone Protection Phone Cover Product -->
-      <div class="product-card bg-white rounded-lg shadow-lg overflow-hidden" data-category="Electronics">
-        <div class="relative">
-          <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="iPhone Protection Phone Cover" class="w-full h-64 object-cover">
-          <div class="absolute top-2 right-2 bg-primary text-white text-xs font-bold px-2 py-1 rounded">
-            4.9 <i class="ri-star-fill"></i>
-          </div>
-        </div>
-        <div class="p-4">
-          <h3 class="text-lg font-semibold mb-1">iPhone Protection Phone Cover</h3>
-          <div class="flex items-center mb-2">
-            <span class="text-gray-500 line-through mr-2">Rs. 1900</span>
-            <span class="text-primary font-bold">Rs. 800</span>
-          </div>
-          <p class="text-gray-600 text-sm mb-3">Premium silicone cover for iPhone models</p>
-          <div class="image-gallery">
-            <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="Thumbnail 1" class="thumbnail active" onclick="changeMainImage(this, 'https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg')">
-            <img src="https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg" alt="Thumbnail 2" class="thumbnail" onclick="changeMainImage(this, 'https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg')">
-            <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="Thumbnail 3" class="thumbnail" onclick="changeMainImage(this, 'https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg')">
-            <img src="https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg" alt="Thumbnail 4" class="thumbnail" onclick="changeMainImage(this, 'https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg')">
-          </div>
-          <button onclick="openProductDetail(
-            'iPhone Protection Phone Cover', 
-            '800', 
-            '• Material: Silicone\n• Product Features: Easy To Use, Water Resistant, Durable\n• Compatible With: iPhone 11, iPhone 11 Pro, iPhone 11 Pro Max, iPhone 12, iPhone 12 Pro Max, iPhone 13, iPhone 13 Pro Max, iPhone 14, iPhone 14 Pro, iPhone 14 Pro Max, iPhone 15\n• Package Includes: 1p x Mobile Cover\n• Note: Please ensure to follow the instructions provided in the user manual for proper usage and safety precautions',
-            'https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg'
-          )" class="w-full mt-4 bg-primary text-white py-2 rounded-button hover:bg-primary/90">
-            View Details
-          </button>
-        </div>
-      </div>
-    </div>
-  </section>
-</main>
-<footer class="bg-white border-t">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-      <div>
-        <h3 class="text-lg font-semibold mb-4">About Us</h3>
-        <p class="text-gray-600">Your one-stop shop for premium products.</p>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Categories</h3>
-        <ul class="space-y-2">
-          <li><a href="#" class="text-gray-600 hover:text-primary">Electronics</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-primary">Fashion</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-primary">Home & Living</a></li>
-          <li><a href="#" class="text-gray-600 hover:text-primary">Sports</a></li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Contact</h3>
-        <ul class="space-y-2">
-          <li class="flex items-center space-x-2">
-            <i class="ri-whatsapp-line text-green-500"></i>
-            <span class="text-gray-600">03167204052</span>
-          </li>
-          <li class="flex items-center space-x-2">
-            <i class="ri-mail-line text-gray-400"></i>
-            <span class="text-gray-600">info@haseebshop.com</span>
-          </li>
-        </ul>
-      </div>
-      <div>
-        <h3 class="text-lg font-semibold mb-4">Newsletter</h3>
-        <div class="flex">
-          <input type="email" placeholder="Your email" class="flex-1 px-4 py-2 rounded-l-button border-none bg-gray-100">
-          <button class="px-4 py-2 bg-primary text-white rounded-r-button hover:bg-primary/90">Subscribe</button>
-        </div>
-      </div>
-    </div>
-    <div class="mt-8 pt-8 border-t text-center text-gray-600">
-      <p>&copy; 2025 Haseeb's Hope. All rights reserved.</p>
-    </div>
-  </div>
-</footer>
-<div id="productDetailModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold" id="modalProductTitle"></h2>
-        <button onclick="closeProductDetail()" class="text-gray-500 hover:text-gray-700">
-          <i class="ri-close-line text-2xl"></i>
-        </button>
-      </div>
-      <div class="mb-6">
-        <img id="modalProductImage" class="w-full h-64 object-cover rounded-lg" src="" alt="">
-        <div class="image-gallery justify-center mt-2">
-          <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="Thumbnail 1" class="thumbnail active" onclick="changeModalImage(this, 'https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg')">
-          <img src="https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg" alt="Thumbnail 2" class="thumbnail" onclick="changeModalImage(this, 'https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg')">
-          <img src="https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg" alt="Thumbnail 3" class="thumbnail" onclick="changeModalImage(this, 'https://i.postimg.cc/QCcRzYtd/Whats-App-Image-2025-06-24-at-12-15-28-AM.jpg')">
-          <img src="https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg" alt="Thumbnail 4" class="thumbnail" onclick="changeModalImage(this, 'https://i.postimg.cc/j5nVHSYN/Whats-App-Image-2025-06-24-at-12-15-28-AM-1.jpg')">
-        </div>
-      </div>
-      <div class="space-y-4">
-        <div class="flex items-center">
-          <span class="text-gray-500 line-through mr-3 text-lg" id="modalProductOriginalPrice"></span>
-          <span class="text-2xl font-bold text-primary" id="modalProductPrice"></span>
-          <span class="ml-auto bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded">In Stock</span>
-        </div>
-        <div class="flex items-center">
-          <div class="flex items-center text-yellow-400">
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-fill"></i>
-            <i class="ri-star-half-fill"></i>
-          </div>
-          <span class="text-gray-600 text-sm ml-2">4.9 (128 reviews)</span>
-        </div>
-        <p class="text-gray-600 whitespace-pre-line" id="modalProductDescription"></p>
-        <div class="bg-gray-100 p-4 rounded-lg">
-          <h4 class="font-semibold mb-2">Compatible With:</h4>
-          <p class="text-sm">iPhone 11, iPhone 11 Pro, iPhone 11 Pro Max, iPhone 12, iPhone 12 Pro Max, iPhone 13, iPhone 13 Pro Max, iPhone 14, iPhone 14 Pro, iPhone 14 Pro Max, iPhone 15</p>
-        </div>
-        <button onclick="showOrderForm(document.getElementById('modalProductTitle').textContent, document.getElementById('modalProductPrice').textContent)" class="w-full bg-primary text-white py-3 rounded-button hover:bg-primary/90">Order Now</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div id="orderFormModal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
-  <div class="bg-white rounded-lg max-w-xl w-full mx-4">
-    <div class="p-6">
-      <div class="flex justify-between items-center mb-4">
-        <h2 class="text-2xl font-semibold">Complete Your Order</h2>
-        <button onclick="closeOrderForm()" class="text-gray-500 hover:text-gray-700">
-          <i class="ri-close-line text-2xl"></i>
-        </button>
-      </div>
-      <form id="orderForm" onsubmit="submitOrder(event)" class="space-y-4">
-        <input type="hidden" id="orderProductName">
-        <input type="hidden" id="orderProductPrice">
-        <div>
-          <label class="block text-gray-700 mb-2">Full Name</label>
-          <input type="text" required class="w-full px-4 py-2 rounded-button bg-gray-100 border-none" name="fullName">
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-2">Phone Number</label>
-          <input type="tel" required class="w-full px-4 py-2 rounded-button bg-gray-100 border-none" name="phone">
-        </div>
-        <div>
-          <label class="block text-gray-700 mb-2">Delivery Address</label>
-          <textarea required class="w-full px-4 py-2 rounded-button bg-gray-100 border-none h-24" name="address"></textarea>
-        </div>
-        <div class="bg-gray-100 p-4 rounded-lg text-sm text-gray-600">
-          <p>Your order will be delivered in 7 to 10 working days, and you can return your order within 4 days. After that, we are not responsible.</p>
-        </div>
-        <button type="submit" class="w-full bg-primary text-white py-3 rounded-button hover:bg-primary/90">Confirm Order</button>
-      </form>
-    </div>
-  </div>
-</div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const mobileMenuButton = document.querySelector('button.md\\:hidden');
-    const nav = document.querySelector('nav');
-    if(mobileMenuButton && nav) {
-      mobileMenuButton.addEventListener('click', () => {
-        nav.classList.toggle('hidden');
-      });
-    }
-  });
 
-  function filterByCategory(category) {
-    const products = document.querySelectorAll('.product-card');
-    products.forEach(product => {
-      if (category === 'all' || product.dataset.category === category) {
-        product.style.display = 'block';
-      } else {
-        product.style.display = 'none';
-      }
-    });
-  }
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Haseeb Store</h3>
+                    <p>Your one-stop shopping destination for quality products at affordable prices.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#products">Products</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Shipping Policy</a></li>
+                        <li><a href="#">Returns & Refunds</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Info</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-envelope"></i> haseebshop378@gmail.com</li>
+                        <li><i class="fas fa-phone-alt"></i> 03167202164</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pakistan</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Haseeb Store. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-  function changeMainImage(element, newSrc) {
-    const productCard = element.closest('.product-card');
-    const mainImage = productCard.querySelector('img.w-full');
-    mainImage.src = newSrc;
-    
-    // Update active thumbnail
-    const thumbnails = productCard.querySelectorAll('.thumbnail');
-    thumbnails.forEach(thumb => thumb.classList.remove('active'));
-    element.classList.add('active');
-  }
+    <script>
+        // Mobile menu toggle
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');
+            
+            const hamburger = document.querySelector('.hamburger i');
+            if (navLinks.classList.contains('active')) {
+                hamburger.classList.remove('fa-bars');
+                hamburger.classList.add('fa-times');
+            } else {
+                hamburger.classList.remove('fa-times');
+                hamburger.classList.add('fa-bars');
+            }
+        }
 
-  function changeModalImage(element, newSrc) {
-    const modalImage = document.getElementById('modalProductImage');
-    modalImage.src = newSrc;
-    
-    // Update active thumbnail
-    const thumbnails = document.querySelectorAll('#productDetailModal .thumbnail');
-    thumbnails.forEach(thumb => thumb.classList.remove('active'));
-    element.classList.add('active');
-  }
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                const navLinks = document.getElementById('navLinks');
+                if (navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+            });
+        });
 
-  function openProductDetail(title, price, description, image) {
-    const modalTitle = document.getElementById('modalProductTitle');
-    const modalPrice = document.getElementById('modalProductPrice');
-    const modalOriginalPrice = document.getElementById('modalProductOriginalPrice');
-    const modalDesc = document.getElementById('modalProductDescription');
-    const modalImage = document.getElementById('modalProductImage');
-    const modalContainer = document.getElementById('productDetailModal');
-    
-    if(modalTitle && modalPrice && modalDesc && modalImage && modalContainer) {
-      modalTitle.textContent = title;
-      modalPrice.textContent = 'Rs. ' + price;
-      modalOriginalPrice.textContent = 'Rs. 1900';
-      modalDesc.textContent = description;
-      modalImage.src = image;
-      modalContainer.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-    }
-  }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#summer-collection' || targetId === '#iphone-cover') {
+                    // Show product page and hide other sections
+                    document.querySelectorAll('section').forEach(section => {
+                        section.style.display = 'none';
+                    });
+                    document.querySelector(targetId).style.display = 'block';
+                    document.querySelector('header').style.display = 'block';
+                    document.querySelector('footer').style.display = 'block';
+                    window.scrollTo(0, 0);
+                } else {
+                    // Show all sections and scroll to target
+                    document.querySelectorAll('.product-page').forEach(page => {
+                        page.style.display = 'none';
+                    });
+                    document.querySelectorAll('section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    document.querySelector('header').style.display = 'block';
+                    document.querySelector('footer').style.display = 'block';
+                    
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
 
-  function closeProductDetail() {
-    const modalContainer = document.getElementById('productDetailModal');
-    if(modalContainer) {
-      modalContainer.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  }
+        // Change product image on thumbnail click
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+            
+            // Update active thumbnail
+            document.querySelectorAll('.thumbnail').forEach(thumb => {
+                thumb.classList.remove('active');
+            });
+            event.currentTarget.classList.add('active');
+        }
 
-  function showOrderForm(productName, productPrice) {
-    const nameInput = document.getElementById('orderProductName');
-    const priceInput = document.getElementById('orderProductPrice');
-    const formModal = document.getElementById('orderFormModal');
-    if(nameInput && priceInput && formModal) {
-      nameInput.value = productName;
-      priceInput.value = productPrice;
-      formModal.classList.remove('hidden');
-      document.body.style.overflow = 'hidden';
-      closeProductDetail();
-    }
-  }
+        // Order form functions
+        function showOrderForm(productName, productPrice) {
+            document.getElementById('productName').value = productName;
+            document.getElementById('productPrice').value = productPrice;
+            document.getElementById('orderForm').style.display = 'flex';
+            document.getElementById('orderConfirmation').style.display = 'none';
+            document.getElementById('orderFormElement').reset();
+            // Scroll to top of form
+            document.querySelector('.form-container').scrollTo(0, 0);
+        }
 
-  function closeOrderForm() {
-    const formModal = document.getElementById('orderFormModal');
-    if(formModal) {
-      formModal.classList.add('hidden');
-      document.body.style.overflow = 'auto';
-    }
-  }
+        function hideOrderForm() {
+            document.getElementById('orderForm').style.display = 'none';
+        }
 
-  function submitOrder(event) {
-    event.preventDefault();
-    try {
-      const formData = new FormData(event.target);
-      const productNameEl = document.getElementById('orderProductName');
-      const productPriceEl = document.getElementById('orderProductPrice');
-      if(!productNameEl || !productPriceEl) {
-        return;
-      }
-      const productName = productNameEl.value;
-      const productPrice = productPriceEl.value;
-      const fullName = formData.get('fullName');
-      const phone = formData.get('phone');
-      const address = formData.get('address');
-      if(!fullName || !phone || !address) {
-        return;
-      }
-      const message = encodeURIComponent(`New Order Details:
-Product: ${productName}
-Price: ${productPrice}
-Name: ${fullName}
-Phone: ${phone}
-Address: ${address}`);
-      window.location.href = `https://wa.me/03167204052?text=${message}`;
-      closeOrderForm();
-    } catch(error) {
-      console.error('Error submitting order:', error);
-    }
-  }
-</script>
+        function showConfirmation() {
+            // Validate form
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            
+            if (!name || !phone || !address || !city) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            document.getElementById('orderConfirmation').style.display = 'block';
+            // Scroll to confirmation section
+            document.getElementById('orderConfirmation').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        function submitOrder() {
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const address = document.getElementById('address').value;
+            const city = document.getElementById('city').value;
+            const product = document.getElementById('productName').value;
+            const price = "₨ " + document.getElementById('productPrice').value;
+            
+            const message = `New Order from Haseeb Store Website:\n\n` +
+                           `Product: ${product}\n` +
+                           `Price: ${price}\n\n` +
+                           `Customer Details:\n` +
+                           `Name: ${name}\n` +
+                           `Phone: ${phone}\n` +
+                           `Address: ${address}, ${city}\n\n` +
+                           `Please confirm this order.`;
+            
+            const whatsappUrl = `https://wa.me/923167202164?text=${encodeURIComponent(message)}`;
+            
+            window.open(whatsappUrl, '_blank');
+            hideOrderForm();
+            
+            // Reset the page to home view
+            document.querySelectorAll('.product-page').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.querySelectorAll('section').forEach(section => {
+                section.style.display = 'block';
+            });
+            window.scrollTo(0, 0);
+            
+            // Show success message
+            alert('Your order has been submitted! Please check your WhatsApp to confirm with our team.');
+        }
+
+        // Add fade-in animation to elements when they come into view
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-active');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    </script>
 </body>
-</html>
+  </html>
